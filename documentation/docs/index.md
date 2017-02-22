@@ -30,8 +30,3 @@ the following network resources:
     
 The bastion host is used to provide SSH access to instances with private IP addresses in
 the application's security group. 
-
-
-
-
-

@@ -1,9 +1,6 @@
-
-# Johnscloud
+# John's Cloud
 
 John's CloudFormation templates and devops scripts.
-
-
 
 
 ## Documentation Generation
@@ -40,4 +37,3 @@ For full documentation visit [mkdocs.org](http://mkdocs.org).
     docs/
         index.md  # The documentation homepage.
         ...       # Other markdown pages, images and other files.
-

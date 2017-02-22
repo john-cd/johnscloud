@@ -7,7 +7,6 @@
 site/
 documentation/site/
 
-
 # Eclipse
 .classpath
 .project
