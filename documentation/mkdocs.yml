@@ -1,0 +1,23 @@
+site_name: John's Cloud
+#site_description: 
+#site_author:
+#theme: readthedocs
+#google_analytics: ['UA-36723568-3', 'mkdocs.org']
+
+pages:
+- Home: 'index.md'
+#- User Guide:
+#    - 'Writing your docs': 'user-guide/writing-your-docs.md'
+#    - 'Styling your docs': 'user-guide/styling-your-docs.md'
+#- About:
+#    - 'License': 'about/license.md'
+#    - 'Release Notes': 'about/release-notes.md'
+
+
+
+markdown_extensions:
+    - smarty
+    - toc:
+        permalink: True
+    - sane_lists
+    - wikilinks
