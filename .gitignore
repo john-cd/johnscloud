@@ -1,6 +1,37 @@
-# Compiled files
+
+# Terraform - Compiled files
 *.tfstate
 *.tfstate.backup
 
+# MkDocs
 site/
 documentation/site/
+
+# Eclipse
+.classpath
+.project
+.settings/
+
+# Intellij
+.idea/
+*.iml
+*.iws
+
+# Maven
+log/
+target/
+
+# Mac
+.DS_Store
+.DS_Store?
+
+# Windows
+Desktop.ini
+*.lnk
+*.cab
+*.msi
+*.msm
+*.msp
+$RECYCLE.BIN/
+Thumbs.db
+ehthumbs.db
