@@ -1,0 +1,36 @@
+AWSTemplateFormatVersion: '2010-09-09'
+
+# Derived from: https://github.com/awslabs/codebuild-images 
+
+Description: >
+  Creates Amazon ECR repository
+
+Parameters:
+  EnvName:
+    Type: String
+    Description: Name of the CodeBuild environment (e.g. php, elixir, perl)
+    AllowedPattern: "[a-z0-9\\-]+"
+
+Resources:
+  BuildImageRepository:
+    Type: AWS::ECR::Repository
+    DeletionPolicy: Retain
+    Properties:
+      RepositoryName: !Sub "codebuild/${EnvName}"
+      RepositoryPolicyText:
+        Version: 2008-10-17
+        Statement:
+          - Action:
+              - ecr:BatchCheckLayerAvailability
+              - ecr:BatchGetImage
+              - ecr:GetDownloadUrlForLayer
+            Effect: Allow
+            Principal:
+              AWS:
+                - arn:aws:iam::201349592320:root
+                - arn:aws:iam::570169269855:root
+                - arn:aws:iam::964771811575:root
+
+Outputs:
+  BuildImageRepositoryUri:
+    Value: !Sub "${AWS::AccountId}.dkr.ecr.${AWS::Region}.amazonaws.com/${BuildImageRepository}"
