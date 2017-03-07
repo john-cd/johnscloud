@@ -1,3 +1,6 @@
+samples/
+*.url
+*.lnk
 
 # Terraform - Compiled files
 *.tfstate

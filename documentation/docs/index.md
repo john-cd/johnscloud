@@ -3,17 +3,7 @@
 You will find in this repo collected CloudFormation templates, Bash and Python scripts that I use regularly in my own AWS cloud setups.
 
 
-## Useful Links / Template Sources
 
-[startup-kit-templates](https://github.com/awslabs/startup-kit-templates)
-
-[AWS CloudFormation Sample Templates](https://github.com/awslabs/aws-cloudformation-templates)
-
-[Cloudonaut](https://cloudonaut.io/templates-for-aws-cloudformation/)
-
-[Free Templates for AWS CloudFormation (Cloudonaut)](https://github.com/widdix/aws-cf-templates)
-
-[Deploying Microservices with Amazon ECS, AWS CloudFormation, and an Application Load Balancer](https://github.com/awslabs/ecs-refarch-cloudformation)
 
 
 ## CloudFormation Templates
