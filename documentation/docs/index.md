@@ -2,13 +2,15 @@
 
 You will find in this repo collected CloudFormation templates, Bash and Python scripts that I use regularly in my own AWS cloud setups.
 
+## utils folder
 
+Simple scripts to convert JSON CloudFormation templates or config files into YAML format
 
+## src\infrastructure folder
 
+CloudFormation Templates 
 
-## CloudFormation Templates
-
-### VPC folder
+### Work in Progress
 
 The VPC template is the foundation for everything else. It creates a VPC that includes
 the following network resources:
