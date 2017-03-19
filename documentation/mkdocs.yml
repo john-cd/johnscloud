@@ -1,19 +1,21 @@
 site_name: John's Cloud
 #site_description: 
-#site_author:
+site_author: John
 #theme: readthedocs
-#google_analytics: ['UA-36723568-3', 'mkdocs.org']
+google_analytics: ['UA-92780605-1', 'john-cd.com']
 
 pages:
 - Home: 'index.md'
+- Docker:
+    - 'MongoDB on Docker': 'docker/mongoDB_docker.md'
+    - 'ElasticSearch on Docker': 'docker/elasticsearch_docker.md'
+
 #- User Guide:
 #    - 'Writing your docs': 'user-guide/writing-your-docs.md'
 #    - 'Styling your docs': 'user-guide/styling-your-docs.md'
 #- About:
 #    - 'License': 'about/license.md'
 #    - 'Release Notes': 'about/release-notes.md'
-
-
 
 markdown_extensions:
     - smarty
