@@ -1,0 +1,74 @@
+{
+    "docs": [
+        {
+            "location": "/",
+            "text": "John\u2019s Cloud\n\u00b6\n\n\nYou will find in this repo collected CloudFormation templates, Bash and Python scripts and Docker images that I use regularly in my own AWS cloud setups.\n\n\nutils\n folder\n\u00b6\n\n\nSimple scripts to convert JSON CloudFormation templates or config files into YAML format\n\n\nsrc\\infrastructure\n folder\n\u00b6\n\n\nCloudFormation Templates \n\n\nWork in Progress\n\u00b6\n\n\nVPC CloudFormation Template\n\u00b6\n\n\nThe VPC template is the foundation for everything else. It creates a VPC that includes\nthe following network resources:\n\n\n\n\nTwo public subnets.\n\n\nTwo private subnets.\n\n\nA NAT Gateway to allow instances in private subnets to communicate with AWS services.\n\n\nTwo route tables, one for public subnets and the other for private subnets.\n\n\nSecurity groups for an app, load balancer, database, and bastion host.\n\n\n\n\nThe bastion host is used to provide SSH access to instances with private IP addresses in\nthe application\u2019s security group.",
+            "title": "Home"
+        },
+        {
+            "location": "/#johns-cloud",
+            "text": "You will find in this repo collected CloudFormation templates, Bash and Python scripts and Docker images that I use regularly in my own AWS cloud setups.",
+            "title": "John's Cloud"
+        },
+        {
+            "location": "/#utils-folder",
+            "text": "Simple scripts to convert JSON CloudFormation templates or config files into YAML format",
+            "title": "utils folder"
+        },
+        {
+            "location": "/#srcinfrastructure-folder",
+            "text": "CloudFormation Templates",
+            "title": "src\\infrastructure folder"
+        },
+        {
+            "location": "/#work-in-progress",
+            "text": "",
+            "title": "Work in Progress"
+        },
+        {
+            "location": "/#vpc-cloudformation-template",
+            "text": "The VPC template is the foundation for everything else. It creates a VPC that includes\nthe following network resources:   Two public subnets.  Two private subnets.  A NAT Gateway to allow instances in private subnets to communicate with AWS services.  Two route tables, one for public subnets and the other for private subnets.  Security groups for an app, load balancer, database, and bastion host.   The bastion host is used to provide SSH access to instances with private IP addresses in\nthe application\u2019s security group.",
+            "title": "VPC CloudFormation Template"
+        },
+        {
+            "location": "/docker/mongoDB_docker/",
+            "text": "Mongo on Docker\n\u00b6\n\n\nMongo Docker Image\n\n\n$ docker pull mongo\n\n$ docker run --name some-mongo -d mongo\n\n\n\n\nThis image includes EXPOSE 27017 (the mongo port), so standard container linking will make it automatically available to the linked containers.\n\n\nConnect to Mongo from an application\n\u00b6\n\n\nNote: \n--link\n to be deprecated soon.\n\n\ndocker run --name some-app --link some-mongo:mongo -d application-that-uses-mongo\n\n\n\n\n$ docker run -it --link some-mongo:mongo --rm mongo sh \n    -c 'exec mongo \"$MONGO_PORT_27017_TCP_ADDR:$MONGO_PORT_27017_TCP_PORT/test\"'",
+            "title": "MongoDB on Docker"
+        },
+        {
+            "location": "/docker/mongoDB_docker/#mongo-on-docker",
+            "text": "Mongo Docker Image  $ docker pull mongo\n\n$ docker run --name some-mongo -d mongo  This image includes EXPOSE 27017 (the mongo port), so standard container linking will make it automatically available to the linked containers.",
+            "title": "Mongo on Docker"
+        },
+        {
+            "location": "/docker/mongoDB_docker/#connect-to-mongo-from-an-application",
+            "text": "Note:  --link  to be deprecated soon.  docker run --name some-app --link some-mongo:mongo -d application-that-uses-mongo  $ docker run -it --link some-mongo:mongo --rm mongo sh \n    -c 'exec mongo \"$MONGO_PORT_27017_TCP_ADDR:$MONGO_PORT_27017_TCP_PORT/test\"'",
+            "title": "Connect to Mongo from an application"
+        },
+        {
+            "location": "/docker/elasticsearch_docker/",
+            "text": "ElasticSearch on Docker\n\u00b6\n\n\nElasticSearch Docker Image\n\n\n$ docker pull docker.elastic.co/elasticsearch/elasticsearch:5.2.2\n$ docker run -p 9200:9200 -e \"http.host=0.0.0.0\" \n    -e \"transport.host=127.0.0.1\" docker.elastic.co/elasticsearch/elasticsearch:5.2.2\n\n\n\n\nCustom Image\n\u00b6\n\n\nSee \nlink\n above.\n\n\nYou can pass in additional flags to elasticsearch:\n\n\n$ docker run -d my-es-image elasticsearch -Des.node.name=\"TestNode\"\n\n\n\n\nThe standard image comes with a default set of configuration files for elasticsearch, but if you want to provide your own set of configuration files, you can do so via a volume mounted at \n/usr/share/elasticsearch/config\n:\n\n\n$ docker run -d -v \"$PWD/config\":/usr/share/elasticsearch/config my-es-image\n\n\n\n\nThe standard image is configured with a volume at \n/usr/share/elasticsearch/data\n to hold the persisted index data. Use that path if you would like to keep the data in a mounted volume:\n\n\n$ docker run -d -v \"$PWD/esdata\":/usr/share/elasticsearch/data my-es-image\n\n\n\n\nThe standard image includes \nEXPOSE 9200 9300\n (default http.port), so standard container linking will make it automatically available to the linked containers.\n\n\nPersistent storage volumes:\n\n\ndocker volume create --name esdata\ndocker run --rm -ti -p 9200:9200 -v esdata:/usr/share/elasticsearch/data my-es-image\n\n\n\n\nKibana on Docker\n\u00b6\n\n\nKibana on Docker Documentation\n\n\ndocker pull docker.elastic.co/kibana/kibana:5.2.2\n\n\n\n\n\n\nAccess Kibana via \nhttp://localhost:5601\n\n\nAccess Sense via \nhttp://localhost:5601/app/sense\n\n\n\n\nUse of the older image on hub.docker.com\n\u00b6\n\n\n$ docker run --link some-elasticsearch:elasticsearch -d kibana --plugins /somewhere/else\n\n\n\n\nCreate Dockerfile: \n\n\n$ touch Dockerfile\n$ vi Dockerfile\n\n\n\n\nFROM kibana:latest\nRUN gosu kibana kibana plugin --install elastic/sense/latest\nEXPOSE 5601\nENTRYPOINT [\"/docker-entrypoint.sh\"]\nCMD [\"kibana\"]\n\n\n\n\nBuild the \u201cdocker-kibana-sense\u201d Docker image from the Dockerfile (in current Directory)\n\n\n$ docker build -t docker-kibana-sense .\n\n\n\n\nES image comes with a default set of configuration files for elasticsearch, but if you want to provide your own set of configuration files, you can do so via a volume mounted at \n/usr/share/elasticsearch/config\n:\n\n\n$ docker run --name myES -d -v /c/Users/john.cd/Desktop/docker-elasticsearch/config:/usr/share/elasticsearch/config -p 9200:9200 -p 9300:9300 elasticsearch\n\n$ docker run --name myK --link myES:elasticsearch  -p 5601:5601 -d docker-kibana-sense\n\n\n\n\nAlternatively provide the address of elasticsearch via \nELASTICSEARCH_URL\n environnement variable\n\n\n$ docker run --name myK -e ELASTICSEARCH_URL=http://some-elasticsearch:9200 -p 5601:5601 -d kibana",
+            "title": "ElasticSearch on Docker"
+        },
+        {
+            "location": "/docker/elasticsearch_docker/#elasticsearch-on-docker",
+            "text": "ElasticSearch Docker Image  $ docker pull docker.elastic.co/elasticsearch/elasticsearch:5.2.2\n$ docker run -p 9200:9200 -e \"http.host=0.0.0.0\" \n    -e \"transport.host=127.0.0.1\" docker.elastic.co/elasticsearch/elasticsearch:5.2.2",
+            "title": "ElasticSearch on Docker"
+        },
+        {
+            "location": "/docker/elasticsearch_docker/#custom-image",
+            "text": "See  link  above.  You can pass in additional flags to elasticsearch:  $ docker run -d my-es-image elasticsearch -Des.node.name=\"TestNode\"  The standard image comes with a default set of configuration files for elasticsearch, but if you want to provide your own set of configuration files, you can do so via a volume mounted at  /usr/share/elasticsearch/config :  $ docker run -d -v \"$PWD/config\":/usr/share/elasticsearch/config my-es-image  The standard image is configured with a volume at  /usr/share/elasticsearch/data  to hold the persisted index data. Use that path if you would like to keep the data in a mounted volume:  $ docker run -d -v \"$PWD/esdata\":/usr/share/elasticsearch/data my-es-image  The standard image includes  EXPOSE 9200 9300  (default http.port), so standard container linking will make it automatically available to the linked containers.  Persistent storage volumes:  docker volume create --name esdata\ndocker run --rm -ti -p 9200:9200 -v esdata:/usr/share/elasticsearch/data my-es-image",
+            "title": "Custom Image"
+        },
+        {
+            "location": "/docker/elasticsearch_docker/#kibana-on-docker",
+            "text": "Kibana on Docker Documentation  docker pull docker.elastic.co/kibana/kibana:5.2.2   Access Kibana via  http://localhost:5601  Access Sense via  http://localhost:5601/app/sense",
+            "title": "Kibana on Docker"
+        },
+        {
+            "location": "/docker/elasticsearch_docker/#use-of-the-older-image-on-hubdockercom",
+            "text": "$ docker run --link some-elasticsearch:elasticsearch -d kibana --plugins /somewhere/else  Create Dockerfile:   $ touch Dockerfile\n$ vi Dockerfile  FROM kibana:latest\nRUN gosu kibana kibana plugin --install elastic/sense/latest\nEXPOSE 5601\nENTRYPOINT [\"/docker-entrypoint.sh\"]\nCMD [\"kibana\"]  Build the \u201cdocker-kibana-sense\u201d Docker image from the Dockerfile (in current Directory)  $ docker build -t docker-kibana-sense .  ES image comes with a default set of configuration files for elasticsearch, but if you want to provide your own set of configuration files, you can do so via a volume mounted at  /usr/share/elasticsearch/config :  $ docker run --name myES -d -v /c/Users/john.cd/Desktop/docker-elasticsearch/config:/usr/share/elasticsearch/config -p 9200:9200 -p 9300:9300 elasticsearch\n\n$ docker run --name myK --link myES:elasticsearch  -p 5601:5601 -d docker-kibana-sense  Alternatively provide the address of elasticsearch via  ELASTICSEARCH_URL  environnement variable  $ docker run --name myK -e ELASTICSEARCH_URL=http://some-elasticsearch:9200 -p 5601:5601 -d kibana",
+            "title": "Use of the older image on hub.docker.com"
+        }
+    ]
+}

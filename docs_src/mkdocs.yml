@@ -1,12 +1,15 @@
+site_dir: '../docs'
+docs_dir: 'src'
 site_name: John's Cloud
 #site_description: 
 site_author: John
 #theme: readthedocs
 google_analytics: ['UA-92780605-1', 'john-cd.com']
+repo_url: https://github.com/john-cd/johnscloud
 
 pages:
 - Home: 'index.md'
-- Docker:
+- 'Docker Templates':
     - 'MongoDB on Docker': 'docker/mongoDB_docker.md'
     - 'ElasticSearch on Docker': 'docker/elasticsearch_docker.md'
 
