@@ -34,9 +34,10 @@ $ mkdocs gh-deploy
 For full documentation visit [mkdocs.org](http://mkdocs.org).
 
 ### Project layout
-/docs/
-/docs_src/
-    mkdocs.yml    # The configuration file.
-    src/
-        index.md  # The documentation homepage.
-        ...       # Other markdown pages, images and other files.
+
+    /docs/
+    /docs_src/
+        mkdocs.yml    # The configuration file.
+        src/
+            index.md  # The documentation homepage.
+            ...       # Other markdown pages, images and other files.
